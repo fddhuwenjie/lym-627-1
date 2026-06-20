@@ -1,13 +1,57 @@
-# 连锁门店班次与临时换班系统
+# React + TypeScript + Vite
 
-任务类型：0-1代码生成
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-业务领域：全栈Web应用
+Currently, two official plugins are available:
 
-修改范围：跨模块多文件
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-任务难度：中等偏难
+## Expanding the ESLint configuration
 
-题面：
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-开发一个连锁门店班次与临时换班系统，店长按门店维护岗位、营业时段和员工可上班时间，系统生成排班表并允许员工发起换班申请。正常情况要能排出一周班次、确认换班、记录缺勤、补班和统计工时。员工资质不匹配、连续工时超限、同一时间多店排班、换班对方未确认、已结算班次被修改都要给出明确错误。系统需要门店日历、个人班表、待确认换班和工时导出，导出内容包含门店、岗位、异常班次和结算状态。重启后班次、换班状态、缺勤记录、结算标记和导出历史都能复查。验收时要覆盖批量生成排班、单日调整、跨店借调和结算锁定后的只读表现。
+```js
+export default tseslint.config({
+  extends: [
+    // Remove ...tseslint.configs.recommended and replace with this
+    ...tseslint.configs.recommendedTypeChecked,
+    // Alternatively, use this for stricter rules
+    ...tseslint.configs.strictTypeChecked,
+    // Optionally, add this for stylistic rules
+    ...tseslint.configs.stylisticTypeChecked,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
+
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
+
+export default tseslint.config({
+  extends: [
+    // other configs...
+    // Enable lint rules for React
+    reactX.configs['recommended-typescript'],
+    // Enable lint rules for React DOM
+    reactDom.configs.recommended,
+  ],
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
